@@ -1,4 +1,5 @@
-**User**
+```
+User
  {  
     ID: Deafult,
     Name: String,
@@ -13,13 +14,13 @@
 
  }
 
-**Tag**{
+Tag{
     ID: Default,
     Name: String,
     Books: array of Book_ID
 }
 
-**Book**{
+Book{
      ID:Default,
      Name: String,
      photo: binaryfile,
@@ -31,5 +32,6 @@
      description: string,
      isActive: boolean 
  }
+ ```
 
  post /post parameters: Book

@@ -34,5 +34,3 @@ Book{
      Number_of_Views: Integer
  }
  ```
-
- post /post parameters: Book

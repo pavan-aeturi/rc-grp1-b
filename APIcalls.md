@@ -1,9 +1,12 @@
+*Use auth token of the user while making all the "/books/.." API calls in the header.*
+
+
 
 **getting a book by id**
 ```
 GET "/books/:id"
 req = NULL
-res = Book document with given id
+res = Book document with given id 
 ```
 
 

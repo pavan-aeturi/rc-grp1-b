@@ -11,7 +11,7 @@ User
     emailID: email,
     Books: array of Book_ID,
     wishList: array of Book_ID,
-
+    authTokens: array of Strings
  }
 
 Tag{
@@ -30,7 +30,8 @@ Book{
      dateOfUpload: Date (Default: Date.now())
      location: string,
      description: string,
-     isActive: boolean 
+     isActive: boolean,
+     Number_of_Views: Integer
  }
  ```
 

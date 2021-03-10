@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/pavan-aeturi/rc-grp1-b/issues"
   },
-  "homepage": "https://github.com/pavan-aeturi/rc-grp1-b#readme"
+  "homepage": "https://github.com/pavan-aeturi/rc-grp1-b#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "expressjs": "^1.0.1",
+    "mongoose": "^5.11.19",
+    "mongoose-type-phone": "^1.0.1",
+    "nodemon": "^2.0.7"
+  }
 }

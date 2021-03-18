@@ -34,10 +34,34 @@ const userSchema = mongoose.Schema({
 			},
 		},
 	],
+	wishlist:[
+		{
+			book:{
+				type:mongoose.Schema.Types.ObjectId,
+			}
+		}
+	],
+	address:{
+		type: String,
+	},
+	emailID:{
+		type: String,
+		validate(value) {
+			if (!validator.isEmail(value)) {
+				throw new Error("invalid email");
+			}
+		},
+	}
 });
 
+userSchema.virtual('books',{
+	ref: 'Book',
+	localField:'_id',
+	foreignField: 'owner'
+})
+
 userSchema.methods.toJSON = function () {
-	const user = this;
+	const user = this;	
 	const userObject = user.toObject();
 
 	delete userObject.password;

@@ -8,6 +8,21 @@ router.get("/me", auth, async (req, res) => {
 	res.send(req.user);
 });
 
+router.post("/", async (req, res) => {
+	const user = new User({
+		_id: new mongoose.Types.ObjectId(),
+		...req.body,
+	});
+
+	try {
+		await user.save();
+		const token = await user.generateAuthToken();
+		res.status(201).send({ user, token });
+	} catch (e) {
+		res.status(400).send(e);
+	}
+});
+
 router.post("/logout", auth, async (req, res) => {
 	try {
 		req.user.tokens = req.user.tokens.filter((token) => {
@@ -31,6 +46,45 @@ router.post("/logoutAll", auth, async (req, res) => {
 	}
 });
 
+router.post("/login", async (req, res) => {
+	try {
+		const user = await User.findByCredentials(
+			req.body.phone,
+			req.body.password
+		);
+		const token = await user.generateAuthToken();
+		res.send({ user, token });
+	} catch (e) {
+		res.status(400).send();
+	}
+});
+
+
+router.patch("/wishlist",auth,async(req,res)=>{
+	try{
+	const bId=req.body.id;
+	const user=req.user;
+	user.wishlist.push(bId);
+	await user.save()
+	res.status(200).send(user.wishlist)
+	}
+	catch(e)
+	{
+		res.status(400).send(e)
+	}
+
+});
+
+router.get("/wishlist",auth,async(req,res)=>{
+	try{
+		res.send(req.user.wishlist);
+	}
+	catch(e)
+	{
+		res.status(400).send(e);
+	}
+})
+
 router.get("/:id", async (req, res) => {
 	const _id = req.params.id;
 
@@ -47,33 +101,7 @@ router.get("/:id", async (req, res) => {
 	}
 });
 
-router.post("/login", async (req, res) => {
-	try {
-		const user = await User.findByCredentials(
-			req.body.phone,
-			req.body.password
-		);
-		const token = await user.generateAuthToken();
-		res.send({ user, token });
-	} catch (e) {
-		res.status(400).send();
-	}
-});
 
-router.post("/", async (req, res) => {
-	const user = new User({
-		_id: new mongoose.Types.ObjectId(),
-		...req.body,
-	});
-
-	try {
-		await user.save();
-		const token = await user.generateAuthToken();
-		res.status(201).send({ user, token });
-	} catch (e) {
-		res.status(400).send(e);
-	}
-});
 
 router.patch("/:id", async (req, res) => {
 	const updates = Object.keys(req.body);

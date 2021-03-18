@@ -13,8 +13,8 @@ const userSchema = mongoose.Schema({
 		type: String,
 		unique: true,
 		required: true,
-		minlength: 4,
-		maxlength: 4,
+		minlength: 10,
+		maxlength: 10,
 		validate(value) {
 			if (!validator.isNumeric(value)) {
 				throw new Error("invalid number");

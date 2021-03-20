@@ -90,21 +90,22 @@ router.get("/getAds",auth,async(req,res)=>{
 });
 
 router.patch("/:id",auth, async (req, res) => {
+
 	
 	try {
-	
-	const updates = Object.keys(req.body);
-	const allowedUpdates = ["name", "price", "tags","photo","isActive","location"];
-	const isValidOperation = updates.every((update) =>
-		allowedUpdates.includes(update)
-	);
-
+		const updates = Object.keys(req.body);
+		const allowedUpdates = ["name", "price", "tags","photo","isActive","location"];
+		const isValidOperation = updates.every((update) =>
+			allowedUpdates.includes(update)
+		);
+		
 	if (!isValidOperation) {
 		return res.status(400).send({ error: "Invalid updates!" });
 	}
 
 		const book = await Book.findById(req.params.id);
-		if(book.owner==req.user._id)
+		
+		if(book.owner.toString()===req.user._id.toString())
 		{
 			updates.forEach((update) => (book[update] = req.body[update]));
 			await book.save();
